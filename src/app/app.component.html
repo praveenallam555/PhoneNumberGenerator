@@ -21,7 +21,7 @@
           </div>
           <button [disabled]="f.phonenumber.errors" (click)="onSubmit($event)" class="btn btn-primary">Submit</button>
       </div>
-      <!--  -->
+      <!-- Status section -->
       <div>
           <div style="display: flex; margin-left: auto; justify-content: flex-end; align-items: center;">
             <span *ngIf="submitted && !loading" style="color: rgb(67, 172, 2); margin-right: 10px;"> Submitted/Retrieved successfully </span>  
@@ -37,6 +37,7 @@
               </div>
           </div>
           <hr>
+          <!-- Results -->
           <div *ngIf="loading" 
             style="display: flex; flex-direction: row; margin-top: 10px; font-size: 16px; font-weight: bold; 
               justify-content: center; align-items: center; color:rgb(255, 153, 0) ;"
@@ -62,7 +63,7 @@
                           (click)="incrementPage()">&#62;</button>
                   </div>
               </div>
-              <div *ngIf="tempMessage != ''" class="alert alert-warning tempMessageString" >{{tempMessage}}</div>
+              <div *ngIf="tempMessage !=''" class="alert alert-warning tempMessageString" >{{tempMessage}}</div>
               <div style="margin-top: 10px;">
                   <table class="table phoneTable">
                       <thead >
@@ -78,10 +79,6 @@
                           </tr>
                       </tbody>
                   </table>
-                  <!-- <ul class="list-group">
-                      <li *ngFor="let phone of phones; let ind = index;" class="list-group-item">{{ind+1}}.
-                          &nbsp;{{phone}}</li>
-                  </ul> -->
               </div>
           </div>
   

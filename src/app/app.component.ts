@@ -23,7 +23,7 @@ export class AppComponent {
   
   phones:String[]=[];
   
-  tempMessage:String='';
+  tempMessage:any='';
   serverError:Boolean = false;
   serverErrorMessage:String;
   pageSize:number = 50;
