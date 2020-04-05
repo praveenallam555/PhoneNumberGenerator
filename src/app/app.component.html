@@ -1,0 +1,91 @@
+<div class="homePage">
+  <div class="content">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Phone Number Generator</a>
+        </div>
+      </div>
+    </nav>
+    <form [formGroup]="phoneForm" (ngSubmit)="onSubmit()">
+      <div style="min-width: 600px;">
+          <div class="form-group">
+              <label style="margin-bottom: 10px;">Enter Phone Number </label>
+              <input (keypress)="keyPress($event)" required type="text" formControlName="phonenumber" class="form-control"
+                  placeholder="Enter Your phone Number">
+              <div *ngIf="f.phonenumber.touched && f.phonenumber.errors" class="alert alert-danger">
+                  <div *ngIf="f.phonenumber.errors.required">Phone number is required</div>
+                  <div *ngIf="f.phonenumber.errors.pattern || f.phonenumber.errors.phoneNumberLength">
+                      Phone number must be either 7 or 10 numbers</div>
+              </div>
+          </div>
+          <input [disabled]="f.phonenumber.errors" type="submit" class="btn btn-primary" value="Submit">
+      </div>
+      <!--  -->
+      <div>
+          <div style="display: flex; margin-left: auto; justify-content: flex-end; align-items: center;">
+            <span *ngIf="submitted && !loading" style="color: rgb(67, 172, 2); margin-right: 10px;"> Submitted/Retrieved successfully </span>  
+              <div *ngIf="submitted && !loading" >Current Phone No: 
+                <span style="color: rgb(2, 144, 233); font-weight: bold; margin-right: 15px;">{{currentPhoneNumber}}</span>
+              </div>
+              <button [disabled]="!submitted" style="margin-right: 20px;" class="btn btn-success"
+                  (click)="getPageData()">Show Results</button>
+              <div class="pageGroups">
+                  <input #pageSizeControl [value]="pageSize" class="form-control">
+                  <button class="btn btn-default" (click)="updatePageSize(pageSizeControl.value)">
+                      Update Page Size</button>
+              </div>
+          </div>
+          <hr>
+          <div *ngIf="loading" 
+            style="display: flex; flex-direction: row; margin-top: 10px; font-size: 16px; font-weight: bold; 
+              justify-content: center; align-items: center; color:rgb(255, 153, 0) ;"
+            >
+            Loading... Please wait!!
+          </div>
+          <div *ngIf="submitted && showPhoneNumbers">
+              <div class="pageNumberHolderGroup">
+                  <span style="margin-right: 10px;">
+                    Displaying <strong>{{pageSize * currentPageNumber}}</strong> of
+                      <strong>{{totalNumberOfRecords}}</strong> records</span>
+                  <div class="pageGroups">
+                      <input #goToPageControl [value]="currentPageNumber" class="form-control">
+                      <button class="btn btn-default" (click)="goToPage(goToPageControl.value)">
+                          Go to Page</button>
+                  </div>
+                  <div class="pageNumberHolder">
+                      <button [disabled]="currentPageNumber==1" class="btn btn-primary"
+                          (click)="decrementPage()">&#60;</button>
+                      <span style="padding: 0px 7px;">
+                          {{currentPageNumber}}/{{totalPages}}</span>
+                      <button [disabled]="currentPageNumber==totalPages" class="btn btn-primary"
+                          (click)="incrementPage()">&#62;</button>
+                  </div>
+              </div>
+              <div *ngIf="tempMessage!=''" class="alert alert-warning tempMessageString" >{{tempMessage}}</div>
+              <div style="margin-top: 10px;">
+                  <table class="table phoneTable">
+                      <thead >
+                          <tr >
+                              <th scope="col">#</th>
+                              <th scope="col">Phone</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let phone of phones; let ind = index;">
+                              <th scope="row">{{ind+1}}</th>
+                              <td>{{phone}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <!-- <ul class="list-group">
+                      <li *ngFor="let phone of phones; let ind = index;" class="list-group-item">{{ind+1}}.
+                          &nbsp;{{phone}}</li>
+                  </ul> -->
+              </div>
+          </div>
+  
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+body{
+    background: #f1f1f1;
+}
+
+.homePage
+{
+    margin:20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* width: 1000px; */
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content
+{
+    display: flex;
+    flex-direction: column;
+    min-width: 800px;
+    max-width: 1200px;
+}
+
+.pageNumberHolderGroup
+{
+    margin: 10px 0px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.pageNumberHolder
+{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageGroups
+{
+    display: flex;
+    flex-direction: row;
+    margin-right: 15px;
+}
+
+.pageGroups input
+{
+    width: 50px;
+    margin-right: 5px;
+
+}
+
+.tempMessageString
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
