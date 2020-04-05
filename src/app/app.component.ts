@@ -63,7 +63,6 @@ export class AppComponent {
     this.phoneForm.reset();
     this.phones = [];
     this.loading = false;
-    this.currentPhoneNumber='';
   }
 
   get f() { return this.phoneForm.controls; }
@@ -113,23 +112,18 @@ export class AppComponent {
     },5000);
   }
 
-  onSubmit() {
+  onSubmit(e) 
+  {
+    e.preventDefault();
     let sessionString = this.getUniqueString(16);
-    console.log(sessionString);
-    // stop here if form is invalid
-    if (this.phoneForm.invalid) {
-      console.log('invalid')
-      return;
-    }
     this.loading = true;
-    let phoneNumber =this.phoneForm.get('phonenumber').value; 
-    this.phoneNumberServie.submit(sessionString,phoneNumber)
+    this.currentPhoneNumber =this.phoneForm.controls.phonenumber.value; 
+    this.phoneNumberServie.submit(sessionString,this.currentPhoneNumber)
     .subscribe((response:Response)=>{
       if(response.success)
       {
         this.currentSession= response.data;
         this.resetToDefaults();
-        this.currentPhoneNumber = phoneNumber;
       }
       else{
         this.serverError = true;
@@ -153,7 +147,7 @@ export class AppComponent {
     .subscribe((response:Response)=>{
       if(response.success)
       {
-        this.phones = response.data.content;
+        this.phones = response.data.phoneNumbers;
         this.totalPages = response.data.totalPages;
         this.totalNumberOfRecords = response.data.totalElements;
       }
@@ -168,6 +162,7 @@ export class AppComponent {
     },()=>{
       this.loading = false;
     });
+    return;
   }
 
   getUniqueString(length) 

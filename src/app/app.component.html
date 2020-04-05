@@ -7,7 +7,7 @@
         </div>
       </div>
     </nav>
-    <form [formGroup]="phoneForm" (ngSubmit)="onSubmit()">
+    <form #form [formGroup]="phoneForm">
       <div style="min-width: 600px;">
           <div class="form-group">
               <label style="margin-bottom: 10px;">Enter Phone Number </label>
@@ -19,7 +19,7 @@
                       Phone number must be either 7 or 10 numbers</div>
               </div>
           </div>
-          <input [disabled]="f.phonenumber.errors" type="submit" class="btn btn-primary" value="Submit">
+          <button [disabled]="f.phonenumber.errors" (click)="onSubmit($event)" class="btn btn-primary">Submit</button>
       </div>
       <!--  -->
       <div>
@@ -62,7 +62,7 @@
                           (click)="incrementPage()">&#62;</button>
                   </div>
               </div>
-              <div *ngIf="tempMessage!=''" class="alert alert-warning tempMessageString" >{{tempMessage}}</div>
+              <div *ngIf="tempMessage != ''" class="alert alert-warning tempMessageString" >{{tempMessage}}</div>
               <div style="margin-top: 10px;">
                   <table class="table phoneTable">
                       <thead >
@@ -73,7 +73,7 @@
                       </thead>
                       <tbody>
                           <tr *ngFor="let phone of phones; let ind = index;">
-                              <th scope="row">{{ind+1}}</th>
+                              <th scope="row">{{(pageSize*(currentPageNumber-1))+ind+1}}</th>
                               <td>{{phone}}</td>
                           </tr>
                       </tbody>
